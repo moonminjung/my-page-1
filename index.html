@@ -4,9 +4,89 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav {
+            display: flex;
+            gap:30px;
+            align-items: center;
+        }
+
+        .nav1 {
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .logo-img {
+            width: 45px;
+        }
+
+
+        .main {
+            position: relative;
+        }
+
+        .main-img {
+            width: 98vw;;
+            vertical-align: middle;
+            mask-image: linear-gradient(to bottom right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
+        }
+           
+
+        .main-text {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            width: 100%;
+            transform: translate( -50%, -50%);
+            text-align: center;
+
+            font-size: 50px;
+            font-weight: bold;
+            color: azure;
+
+        }
+    </style>
+
 </head>
 <body>
-    <h1>첫 번째 페이지</h1>
-    <a href="./test.html">테스트 페이지</a>
+    <div class="nav">
+        <img class="logo-img" src="./img/logo.png" alt="로고">
+        <div class="nav1">menu1</div>
+        <div class="nav1">menu2</div>
+        <div class="nav1">menu3</div>
+        <div class="nav1">menu4</div>
+    </div>
+    <div class="main">
+        <img class= "main-img" src="./img/sky.jpg", width = "100vw"/>
+        <div class="main-text">부산광역시 실시간 대기질 측정 정보</div>
+    </div>
+
+    <ul id="regionList">
+
+    </ul>
+
 </body>
+<script>
+    fetch(`https://apis.data.go.kr/6260000/AirQualityInfoService/getAirQualityInfoClassifiedByStation?serviceKey=HHPOHxC84%2FL92UywaaaZPUsUe9%2FOCfT%2FqBINjhXnJqcHGcDV6adnzNKwIHw6tLZH45J2DMQL40srokRID5wHJg%3D%3D&numOfRows=10&pageNo=1&resultType=json`,{
+        method: "GET",
+        headers : {}
+    })
+    .then((response)=>response.json())
+    .then((data) => {
+        const regionListUITag = document.getElementById("regionList")
+        for (let index = 0; index < data.length; index++) {
+            regionListUITag.insertAdjacentHTML(
+                "beforeend",
+                `<li>${data[index].site}
+            )
+            
+        }
+    }
+</script>
 </html>
